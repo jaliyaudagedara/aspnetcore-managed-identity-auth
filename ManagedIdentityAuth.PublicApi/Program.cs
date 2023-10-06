@@ -13,7 +13,7 @@ app.MapGet("/claims", async (IConfiguration configuration) =>
 {
     DefaultAzureCredential credential = new();
 
-    string[] scopes = configuration.GetValue<string[]>("InternalApi:Scopes")!;
+    string[] scopes = configuration.GetSection("InternalApi:Scopes").Get<string[]>()!;
     TokenRequestContext tokenRequestContext = new(scopes);
     AccessToken accessToken = await credential.GetTokenAsync(tokenRequestContext);
 
