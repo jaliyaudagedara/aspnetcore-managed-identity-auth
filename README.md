@@ -1,13 +1,19 @@
+# More read:
+[Calling an ASP.NET Core Web API Secured with Microsoft Entra ID using Azure Managed Identity](https://jaliyaudagedara.blogspot.com/2023/10/calling-aspnet-core-web-api-secured.html)
+
+## Assign the managed identity access to the app role.
+
+```powershell
 # Login to Azure and setting the subscription
 Connect-AzAccount
-Set-AzContext -SubscriptionId "4e7d5747-5253-4cb5-ab61-db99bffdc924"
+Set-AzContext -SubscriptionId "<SubscriptionId>"
 
 # Install Microsoft.Graph Module if required using below command
 # Install-Module Microsoft.Graph
 
 # Invoking Connect-MgGraph before any commands that access Microsoft Graph,
 # Requesting scopes that we require during our session
-$tenantID = '1f4a5f26-b0bc-402c-9347-e0f7d16c098f'
+$tenantID = '<TenantId>'
 Connect-MgGraph -TenantId $tenantId -Scopes 'Application.Read.All', 'Application.ReadWrite.All', 'AppRoleAssignment.ReadWrite.All', 'Directory.AccessAsUser.All', 'Directory.Read.All', 'Directory.ReadWrite.All'
  
 # App Registration Name
@@ -22,7 +28,7 @@ $appRoleName = 'MI.Access'
 $appRoleId = ($servicePrincipal.AppRoles | Where-Object {$_.Value -eq $appRoleName }).Id
  
 # Managed Identity's Object (principal) ID.
-$managedIdentityObjectId = 'c774b12d-6c77-496b-ba4d-cd08f7444bc4'
+$managedIdentityObjectId = '<ManagedIdentityObjectId>'
  
 # Assign the managed identity access to the app role.
 New-MgServicePrincipalAppRoleAssignment `
@@ -30,3 +36,4 @@ New-MgServicePrincipalAppRoleAssignment `
     -PrincipalId $managedIdentityObjectId `
     -ResourceId $servicePrincipalObjectId `
     -AppRoleId $appRoleId
+```
