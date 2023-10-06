@@ -1,0 +1,7 @@
+@internalApi
+@publicApi
+ 
+GET {{internalApi}}/claims
+
+GET {{publicApi}}/claims
+

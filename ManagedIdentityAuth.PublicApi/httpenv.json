@@ -1,0 +1,10 @@
+{
+  "development": {
+    "internalApi": "https://localhost:7033",
+    "publicApi": "https://localhost:7105"
+  },
+  "production": {
+    "internalApi": "https://app-miauth-internal-api.azurewebsites.net",
+    "publicApi": "https://app-miauth-public-api.azurewebsites.net"
+  }
+}
